@@ -8,11 +8,7 @@ Single binary, no external dependencies. Every node runs the same binary, joins 
 
 ```mermaid
 graph TD
-    subgraph "cmd/flock"
-        MAIN[main.go<br/>composition root]
-    end
-
-    subgraph "internal/domain — pure functions"
+    subgraph "internal/domain/"
         SCH[scheduler.go<br/>Schedule]
         SUP[supervisor.go<br/>Transition]
         WK[workload.go]
@@ -20,29 +16,27 @@ graph TD
         AL[allocation.go]
     end
 
-    subgraph "internal/service"
+    subgraph "internal/service/"
         REC[reconciler.go<br/>gossip → schedule → diff → act]
     end
 
-    subgraph "internal/handler"
-        H[handler.go<br/>workload CRUD]
+    subgraph "internal/handler/"
+        HTTP[http/<br/>workload CRUD]
     end
 
-    subgraph "internal/client — ports"
+    subgraph "internal/client/ (ports)"
         RT[runtime/<br/>process lifecycle]
         DIS[discovery/<br/>DNS records]
         TEL[telemetry/<br/>wide events]
     end
 
-    subgraph "meld — library dependency"
+    subgraph "meld (library dependency)"
         MEMB[membership/swim]
         CRDT[crdt/orset]
         GOSSIP[gossip/udp]
         HASH[hash/rendezvous]
     end
 
-    MAIN --> REC
-    MAIN --> H
     REC --> SCH
     REC --> SUP
     REC --> RT
@@ -52,7 +46,7 @@ graph TD
     REC --> CRDT
     REC --> GOSSIP
     SCH --> HASH
-    H --> REC
+    HTTP --> REC
 ```
 
 ## Scheduling During Partitions
