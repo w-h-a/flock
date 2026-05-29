@@ -79,6 +79,11 @@ graph TD
     B1 -->|partition heals| MERGE
 ```
 
-## Dependencies
+## What flock Hosts
 
-- **meld**: CRDT types, version vectors, gossip transport, SWIM membership. Must be complete.
+flock is designed for two classes of workload:
+
+1. **Stateless workloads.** 
+2. **AP self-replicating stateful workloads.**
+
+flock does not host workloads whose durability depends on persistence tied to a specific disk.
