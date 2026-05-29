@@ -8,7 +8,7 @@ package service
 //   2. Call domain.Schedule() to compute desired allocations
 //   3. Diff against runtime.Running() for actual allocations
 //   4. Start missing, stop excess
-//   5. Emit wide events via telemetry port
+//   5. Emit wide events
 type Reconciler struct {
 	// ports injected at construction
 }

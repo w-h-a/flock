@@ -6,7 +6,7 @@
 
 Peer-to-peer workload orchestrator.
 
-Single binary, no external dependencies. Every node runs the same binary, joins via gossip, and can accept workload submissions. No node stores an allocation table. Instead, every node calls a deterministic pure function that computes allocations from the current set of workloads and alive nodes. CRDTs guarantee all nodes converge to the same inputs, so the same function produces the same outputs everywhere. This eliminates the need for a leader, a consensus store, or reconciliation loops.
+Single binary. Every node runs the same binary, joins via gossip, and can accept workload submissions. No node stores an allocation table. Instead, every node calls a deterministic pure function that computes allocations from the current set of workloads and alive nodes. CRDTs guarantee all nodes converge to the same inputs, so the same function produces the same outputs everywhere. This eliminates the need for a leader, a consensus store, or reconciliation loops.
 
 ## Architecture
 
@@ -31,7 +31,6 @@ graph TD
     subgraph "internal/client/ (ports)"
         RT[runtime/<br/>process lifecycle]
         DIS[discovery/<br/>DNS records]
-        TEL[telemetry/<br/>wide events]
     end
 
     subgraph "meld (library dependency)"
@@ -45,7 +44,6 @@ graph TD
     REC --> SUP
     REC --> RT
     REC --> DIS
-    REC --> TEL
     REC --> MEMB
     REC --> CRDT
     REC --> GOSSIP
