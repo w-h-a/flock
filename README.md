@@ -21,7 +21,7 @@ graph TD
     end
 
     subgraph "internal/service/"
-        REC[reconciler.go<br/>gossip → schedule → diff → act]
+        REC[reconciler.go<br/>on converge → schedule → diff → act]
     end
 
     subgraph "internal/handler/"
@@ -38,6 +38,7 @@ graph TD
         CRDT[crdt/orset]
         GOSSIP[gossip/udp]
         HASH[hash/rendezvous]
+        AE[antientropy/basic<br/>delta-state gossip + merge]
     end
 
     REC --> SCH
@@ -45,8 +46,9 @@ graph TD
     REC --> RT
     REC --> DIS
     REC --> MEMB
-    REC --> CRDT
-    REC --> GOSSIP
+    REC --> AE
+    AE --> CRDT
+    AE --> GOSSIP
     SCH --> HASH
     HTTP --> REC
 ```
